@@ -1,0 +1,415 @@
+@charset "UTF-8";
+/* font */
+/* Noto Sans SC*/
+@import url("/Content/font/pretendard.css");
+@import url("https://use.typekit.net/yal2iaz.css");
+@font-face {
+  font-family: "Noto Sans SC";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Noto Sans SC"), url("https://jyp-cdn.azureedge.net/font/NotoSansSC_Regular.woff2") format("woff2"), url("https://jyp-cdn.azureedge.net/font/NotoSansSC_Regular.woff") format("woff");
+  font-display: swap;
+}
+/* font var */
+/* font weight */
+/* reset */
+html, body {
+  height: 100%;
+}
+
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, textarea, p, blockquote, th, td, input, select, textarea, button {
+  margin: 0;
+  padding: 0;
+}
+
+header, main, article, footer, aside, details, figcaption, figure, hgroup, nav, section {
+  display: block;
+}
+
+fieldset, img {
+  border: 0 none;
+}
+
+dl, ul, ol, menu, li {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote::before, blockquote::after, q::before, q::after {
+  content: "";
+  content: none;
+}
+
+input, select, textarea, button {
+  vertical-align: middle;
+  font-size: 100%;
+  outline: 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+body {
+  -webkit-text-size-adjust: none;
+}
+
+input:checked[type=checkbox] {
+  background-color: #666;
+  -webkit-appearance: checkbox;
+}
+
+input[type=text], input[type=password], input[type=submit], input[type=search], input[type=tel], input[type=number], input[type=email], input[type=button], input[type=reset] {
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+input[type=search]::-webkit-search-cancel-button, input[type=search]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+input, textarea {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-appearance: none;
+}
+
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+button {
+  border: 0 none;
+  border-radius: 0;
+  background-color: transparent;
+  cursor: pointer;
+  -webkit-appearance: button;
+  outline: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #fff;
+}
+
+body, th, td, input, select, textarea, button {
+  font-size: 14px;
+  line-height: 1.5;
+  font-family: aktiv-grotesk-extended, Pretendard, "Noto Sans SC", sans-serif;
+  color: #101010;
+}
+
+select:hover {
+  outline: 0;
+}
+
+a {
+  color: #101010;
+  text-decoration: none;
+  outline: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+a:active, a:hover {
+  text-decoration: none;
+}
+
+address, caption, cite, code, dfn, em, var {
+  font-style: normal;
+  font-weight: normal;
+}
+
+ins {
+  text-decoration: none;
+}
+
+hr {
+  display: none;
+}
+
+strong {
+  font-weight: normal;
+}
+
+p, strong, span, dt, dd, li, td, th {
+  cursor: default;
+}
+
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+select::-ms-expand {
+  display: none;
+}
+
+::-moz-selection {
+  background-color: #009be6;
+  color: #fff;
+}
+
+::selection {
+  background-color: #009be6;
+  color: #fff;
+}
+
+img {
+  pointer-events: none;
+}
+
+/* scss var */
+
+.container {
+	max-width: 1024px;
+	margin: 30px auto;		/* 수평으로 가운데 정렬 */	
+}
+
+.boxsample {
+	/* max-width: 512px; */
+	margin: 30px auto;		/* 수평으로 가운데 정렬 */	
+}
+
+.board_list {
+	width: 100%;
+	border-top: 2px solid #252525;
+	border-bottom: 1px solid #ccc;
+	margin: 15px 0;
+	border-collapse: collapse;
+}
+
+.board_list thead th:first-child {
+	background-image: none;
+}
+
+.board_list thead th {
+	border-bottom: 1px solid #ccc;
+	padding: 13px 0;
+	color: #3b3a3a;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.board_list tbody td {
+	border-top: 1px solid #ccc;
+	padding: 13px 0;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.board_list tbody tr:first-child td {
+	border: none;
+}
+
+.board_list tbody tr:hover {
+	background: #ffff99;
+}
+
+.board_list tbody td.title {
+	text-align: left;
+	padding-left: 20px;
+}
+
+.board_list tbody td a {
+	display: inline-block
+}
+
+.board_detail {
+	width: 100%;
+	border-top: 2px solid #252525;
+	border-bottom: 1px solid #ccc;
+	border-collapse: collapse;
+}
+
+.board_detail tbody input {
+	width: 100%;
+}
+
+.board_detail tbody th {
+	text-align: left;
+	background: #f7f7f7;
+	color: #3b3a3a;
+	vertical-align: middle;
+	text-align: center;
+}
+
+.board_detail tbody th, .board_detail tbody td {
+	padding: 10px 15px;
+	border-bottom: 1px solid #ccc;
+}
+
+.board_detail tbody textarea {
+	width: 100%;
+	min-height: 170px
+}
+
+#btn {
+	margin : 10px;
+	text-align : center;
+}
+
+#test2 {
+	margin-top : 50px;
+	margin: auto;
+	width: 100%;
+	text-align: center;	
+	
+}
+
+#head_index {
+	font-size : 20px;
+}
+
+
+#logo {
+	margin : 0;
+	text-align : left;
+	width : 50%;
+	display : block;
+	float : left;
+}
+
+#ul_index {
+	margin : 10px;
+}
+
+#list {
+	margin : 0;
+	text-align : right;
+	width : 50%;
+	display : block;
+	float : left;
+}
+
+#icon {
+	margin : 10px;
+	display : inline-block;
+}
+#index_box {
+	margin : 0 auto;
+	width : 65%;	
+	height : 50%;
+	display : flex;
+	justify-content : center;	
+}
+
+#line {
+	text-align : center;
+}
+#index_list {
+	width : 120px;
+	
+	display : inline-block;
+	margin : 0 auto;	
+	
+}
+
+
+
+#test {
+	display: inline-block;
+	width: 300px;
+	margin : 0 50px;
+	vertical-align : top;
+}
+
+#test3 {
+	margin-top : 100px;
+	margin: auto;
+	width: 100%;
+	text-align: center;	
+	font-size : 60px;
+}
+
+#test4 {
+	display : block;
+	height : 500px;
+	text-align : center;
+	margin : 50px;
+}
+
+#link {
+	display : block;
+}
+
+#cel_btn {
+	display : block;
+	margin-left : 30px ;
+	margin-right : 30px ;
+	font-size : 20px;
+}
+.imageLink {
+	display: block;
+}
+
+#cel_image {
+	margin : auto;
+	justify-content : center;
+	display : flex;
+}
+
+.cel_button {
+	margin : auto;
+	justify-content : center;
+	display : flex;
+	margin-top : 50px;
+}
+
+#title {
+	
+  	margin-top : 30px;
+  	margin-bottom : 100px;
+	font-size : 75px;
+	text-align: center;	
+	width : 100%;
+	justify-content : center;
+	display :flex;
+	position: relative; 
+}
+#cel_list {
+
+}
+#cel_name {  
+
+	font-size : 20px;
+	text-align : left;
+	
+}
+.picture {
+	width: calc(100% / 3) px;
+	height: 100%;
+}
+
+li {
+	
+}
+.btn {
+	margin: 5px;
+	padding: 5px 11px;
+	color: #fff !important;
+	display: inline-block;
+	background-color: #7D7F82;
+	vertical-align: middle;
+	border-radius: 0 !important;
+	cursor: pointer;
+	border: none;	
+}
+
+.btn:hover {
+	background: #6b9ab8;
+}
+
+.file_list a {
+	display: inherit !important;
+}

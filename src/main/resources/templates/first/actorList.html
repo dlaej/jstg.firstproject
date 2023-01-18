@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8" />
+	<title>ACTOR</title>
+	<link rel="stylesheet" th:href="@{/css/main.css}" />	
+</head>
+<body>	
+	<div>
+		<div id="logo">
+			<a id="icon" href="main.do"><img src="/img/jstg-02.png" width=70px></a>	
+		</div>
+		<div id="list">
+			<a id="icon" href="index.do"><img src="/img/list-02.png" width=35px></a>
+		</div>	
+	</div>   
+	<div class="boxsample">
+		<span id="title" class="board_title">ARTIST</span>
+				
+		<div id="test2">
+			<div id="test"  th:if="${#lists.size(actor)} > 0" th:each="a : ${actor}">
+				
+				<p id="cel_name" class="cel_name" th:text="${a.celebrityName}"></p>
+				<a class="imageLink" href="/openMember.do?celebrityIdx=" th:attrappend="href=${a.celebrityIdx}"><img class="picture" th:src="${a.celebrityImage}" width=300px></a>
+							
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

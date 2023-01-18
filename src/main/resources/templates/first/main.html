@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+  <head>
+  <meta charset="utf-8">
+    <title>JSTG</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
+    <style>
+      body { padding: 0px; margin: 0px; }
+      .jb-box { width: 100%; height: 100%; overflow: hidden;margin: 0px auto; position: relative; }
+      video { width: 100%; }
+      .jb-text { position: absolute; top: 0%; width: 100%; margin : 0;}
+     
+    </style>
+  </head>
+  <body>
+  
+    <div class="jb-box">    
+      <video muted autoplay loop>
+        <source src="img/NewJeans.mp4" type="video/mp4">
+        
+      </video>
+      <div class="jb-text">
+      	<div>
+		<div id="logo">
+			<a id="icon" href="main.do"><img src="/img/jstg-02.png" width=70px></a>	
+		</div>
+		<div id="list">
+			<a id="icon" href="index.do"><img src="/img/list-02.png" width=35px></a>
+		</div>	
+		</div>        
+      </div>
+    </div>
+  </body>
+</html>

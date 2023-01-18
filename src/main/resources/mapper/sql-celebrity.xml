@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="first.mapper.CelebrityMapper">
+
+	<select id="selectType" resultType="first.dto.CelebrityDto">
+		select type_idx, type_name
+		from t_type	
+	</select>
+	
+	<select id="selectCelebrityList" resultType="first.dto.CelebrityDto">
+		select celebrity_idx, celebrity_name, celebrity_image, type_idx 
+		from t_celebrity
+		order by celebrity_idx desc
+			
+	</select> 
+	
+	<select id="selectOneCelebrityByCelebrityIdx" parameterType="int" resultType="first.dto.CelebrityDto">
+		select celebrity_idx, celebrity_name, celebrity_image , type_idx
+		from t_celebrity
+		where celebrity_idx = #{celebrityIdx}
+	</select>
+	
+	
+	<select id="selectCelebrity"  resultType="first.dto.CelebrityDto">
+		select celebrity_idx, celebrity_name, celebrity_image, c.type_idx , type_name
+		from t_celebrity c, t_type t
+		where c.type_idx = t.type_idx
+		and c.type_idx = 1		
+		order by celebrity_idx asc	
+	</select>
+	
+	<select id="selectOneMemberByCelebrityIdx" parameterType="int" resultType="first.dto.MemberDto">
+		select c.celebrity_idx, celebrity_name, m.member_idx, member_name, member_image, member_contents
+		from t_celebrity c, t_member m
+		where c.celebrity_idx = #{celebrityIdx}
+		and c.celebrity_idx = m.celebrity_idx
+		order by member_idx desc
+		limit 1	
+	</select>	
+	
+	<select id="selectMemberByCelebrityIdx" parameterType="int" resultType="first.dto.MemberDto">
+		select c.celebrity_idx, celebrity_name, m.member_idx, member_name, member_image, member_contents
+		from t_celebrity c, t_member m
+		where c.celebrity_idx = #{celebrityIdx}
+		and c.celebrity_idx = m.celebrity_idx
+		order by member_idx asc	
+	</select>
+	
+	<select id="selectMember" parameterType="int" resultType="first.dto.MemberDto">
+		select member_idx, member_name, member_image, member_contents
+		from t_member
+		where member_idx = #{memberIdx}		
+		order by member_idx desc	
+	</select>
+	
+	<select id="selectActor" parameterType="int" resultType="first.dto.CelebrityDto">
+		select celebrity_idx, celebrity_name, celebrity_image, c.type_idx , type_name
+		from t_celebrity c, t_type t
+		where c.type_idx = t.type_idx
+		and c.type_idx = 2		
+		order by celebrity_idx asc	
+	
+	</select>
+	
+	<select id="selectFanList" resultType="first.dto.CelebrityDto">
+		select fan_idx, ftitle, fhit_cnt, 
+		       date_format(fcreated_dt, '%Y-%m-%d %H:%i:%s') as fcreated_dt
+		  from t_fan
+		 where fdeleted_yn = 'N'
+	     order by fan_idx desc
+	</select> 
+	<insert id="insertFan" parameterType="first.dto.CelebrityDto">
+		insert into t_fan (ftitle, fcontents, fcreated_dt, fcreated_id)
+		values ( #{ftitle}, #{fcontents}, now(), 'admin' )
+                
+	</insert>
+	<update id="updatefHitCount" parameterType="int">
+		update t_fan
+		   set fhit_cnt = fhit_cnt + 1
+		 where fan_idx = #{fanIdx}
+	</update>
+	
+	<select id="selectFanDetail" parameterType="int" resultType="first.dto.CelebrityDto">
+		select fan_idx, ftitle, fcontents, fhit_cnt,
+		       date_format(fcreated_dt, '%Y-%m-%d %H:%i:%s') as fcreated_dt,
+		       fcreated_id
+		  from t_fan
+		 where fdeleted_yn = 'N' and fan_idx = #{fanIdx}		       
+	</select>
+	
+	
+	<select id="selectFanboardList" parameterType="int" resultType="first.dto.CelebrityDto">
+		select fan_idx, ftitle, fcontents, fhit_cnt, fcreated_dt, fcreated_id, celebrity_name
+			from t_fan f
+			inner join t_celebrity c
+				on f.celebrity_idx = c.celebrity_idx and c.celebrity_idx = #{celebrityIdx}
+			order by c.celebrity_idx, f.fan_idx desc;
+	</select>
+	
+	<select id="selectCelebrityName" parameterType="int" resultType="first.dto.CelebrityDto">
+		select celebrity_name
+		from t_celebrity
+		where celebrity_idx = #{celebrityIdx}
+	</select>
+	
+
+</mapper>

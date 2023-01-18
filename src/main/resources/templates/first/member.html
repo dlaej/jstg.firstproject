@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8" />
+	<title>MEMBER</title>
+	<link rel="stylesheet" th:href="@{/css/main.css}" />
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">	
+</head>
+<body>
+	<div>
+		<div id="logo">
+			<a id="icon" href="main.do"><img src="/img/jstg-01.png" width=70px></a>	
+		</div>
+		<div id="list">
+			<a id="icon" href="index.do"><img src="/img/list-01.png" width=35px></a>
+		</div>	
+	</div>  
+	<div>
+		<span id="title" class="board_title">MEMBER</span>
+				
+		<div id="test3">
+			<p th:text="${celebrityDto.celebrityName}">		
+		</div>
+		
+		<div id="test4">
+		<div id="test" th:if="${#lists.size(one)} > 0" th:each="o : ${one}">			
+			<img th:src="${o.memberImage}" width="300">
+			<h2 th:text="${o.memberName}"></h2>
+			<p th:text="${o.memberContents}"></p>		
+		</div>
+		</div>		
+	</div>
+	
+	<div id="link">			
+			<div id="btn">
+			<a href="#"><i class="fab fa-youtube fa-2x"></i></a>
+			</div>
+			<div id="btn">
+			<a href="#"><i class="fab fa-instagram fa-2x"></i></a>
+			</div>
+			<div id="btn">			
+			<a href="/openFan.do?celebrityIdx=" th:attrappend="href=${celebrityDto.celebrityIdx}"><i class="fas fa-list fa-2x"></i></a>
+			</div>			
+	</div>
+
+
+</body>
+</html>

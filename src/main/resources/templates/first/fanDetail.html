@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>FAN</title>
+	<link rel="stylesheet" th:href="@{/css/main.css}" />
+</head>
+<body>
+	<div>
+		<div id="logo">
+			<a id="icon" href="main.do"><img src="/img/jstg-01.png" width=70px></a>	
+		</div>
+		<div id="list">
+			<a id="icon" href="index.do"><img src="/img/list-01.png" width=35px></a>
+		</div>	
+	</div>  
+	<div>
+		<h2>게시판 상세</h2>
+		<form action="" method="POST" id="frm" name="frm">
+			<table class="board_detail">
+				<colgroup>
+					<col width="15%" />
+					<col width="35%" />
+					<col width="15%" />
+					<col width="35%" />
+				</colgroup>
+				<tbody>
+					<tr>
+						<th scope="row">글번호</th>
+						<td th:text="${fan.fanIdx}"></td>
+						<th scope="row">조회수</th>
+						<td th:text="${fan.fhitCnt}"></td>
+					</tr>
+					<tr>
+						<th scope="row">작성자</th>
+						<td th:text="${fan.fcreatedId}"></td>
+						<th scope="row">작성일</th>
+						<td th:text="${fan.fcreatedDt}"></td>
+					</tr>
+					<tr>
+						<th scope="row">제목</th>
+						<td colspan="3">
+							<input type="text" id="ftitle" name="ftitle" th:value="${fan.ftitle}" />
+						</td>
+					</tr>
+					<tr>
+						<td colspan="4" class="view_text">
+							<textarea title="내용" id="fcontents" name="fcontents" th:text="${fan.fcontents}"></textarea>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+	</div>
+</body>
+</html>

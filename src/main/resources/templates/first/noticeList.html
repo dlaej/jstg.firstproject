@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8" />
+	<title>NOTICE</title>
+	<link rel="stylesheet" th:href="@{/css/main.css}" />	
+</head>
+<body>
+	<div>
+		<div id="logo">
+			<a id="icon" href="main.do"><img src="/img/jstg-01.png" width=70px></a>	
+		</div>
+		<div id="list">
+			<a id="icon" href="index.do"><img src="/img/list-01.png" width=35px></a>
+		</div>	
+	</div>  
+	<div class="board">
+		
+		<span id="title" class="board_title">NOTICE</span>
+		
+		<table class="board_list">
+			<colgroup>
+				<col width="15%" />
+				<col width="*" />
+				<col width="15%" />
+				<col width="20%" />
+			</colgroup>
+			<thead>
+				<tr>
+					<th scope="col">글번호</th>
+					<th scope="col">제목</th>
+					<th scope="col">조회수</th>
+					<th scope="col">작성일</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:if="${#lists.size(list)} > 0" th:each="notice : ${list}">
+					<td th:text="${notice.noticeIdx}"></td>
+					<td class="title">
+						<a href="/openNoticeDetail.do?noticeIdx=" 
+							th:attrappend="href=${notice.noticeIdx}"
+							th:text="${notice.ntitle}"></a>						
+					</td>			
+					
+					<td th:text="${notice.nhitCnt}"></td>
+					<td th:text="${notice.ncreatedDt}"></td>
+				</tr>
+				<tr th:unless="${#lists.size(list)} > 0">
+					<td colspan="4">조회된 결과가 없습니다.</td>
+				</tr>
+			</tbody>
+		</table>
+		<a href="/openNoticeWrite.do" class="btn">글쓰기</a>
+	</div>
+</body>
+</html>
