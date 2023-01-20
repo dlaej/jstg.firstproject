@@ -3,21 +3,34 @@
 <head>
 	<meta charset="UTF-8" />
 	<title>ACTOR</title>
-	<link rel="stylesheet" th:href="@{/css/main.css}" />	
+	<link rel="stylesheet" th:href="@{/css/main.css}" />
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">		
 </head>
 <body>	
 	<div>
 		<div id="logo">
-			<a id="icon" href="main.do"><img src="/img/jstg-02.png" width=70px></a>	
+			<a id="icon" href="main.do"><img src="/img/jstg-01.png" width=70px></a>	
 		</div>
 		<div id="list">
-			<a id="icon" href="index.do"><img src="/img/list-02.png" width=35px></a>
+			<a id="icon" href="index.do"><img src="/img/list-01.png" width=35px></a>
 		</div>	
-	</div>   
-	<div class="boxsample">
-		<span id="title" class="board_title">ARTIST</span>
+	</div>
+	<div id="link">			
+			<div id="btn">
+			<a href="https://www.youtube.com/JYPEntertainment" target='_blank'><i class="fab fa-youtube fa-2x"></i></a>
+			</div>
+			<div id="btn">
+			<a href="https://www.instagram.com/jypentertainment/" target='_blank'><i class="fab fa-instagram fa-2x"></i></a>
+			</div>						
+	</div>
+	<div id="copy">
+		<p>Copyright © JSTG Entertainment</p>
+	</div>
+	   
+	<div>
+		<span id="title" class="board_title"><b>ACTOR</b></span>
 				
-		<div id="test2">
+		<div id="test4">
 			<div id="test"  th:if="${#lists.size(actor)} > 0" th:each="a : ${actor}">
 				
 				<p id="cel_name" class="cel_name" th:text="${a.celebrityName}"></p>

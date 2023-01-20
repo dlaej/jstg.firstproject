@@ -55,7 +55,32 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public BoardDto selectQnaDetail(int qnaIdx) throws Exception {
+		boardMapper.updateqHitCount(qnaIdx);
 		return boardMapper.selectQnaDetail(qnaIdx);
+	}
+
+	@Override
+	public void updateNotice(BoardDto noticeDto) throws Exception {
+		boardMapper.updateNotice(noticeDto);
+		
+	}
+
+	@Override
+	public void deleteNotice(int noticeIdx) throws Exception {
+		boardMapper.deleteNotice(noticeIdx);
+		
+	}
+
+	@Override
+	public void updateQna(BoardDto qnaDto) throws Exception {
+		boardMapper.updateQna(qnaDto);
+		
+	}
+
+	@Override
+	public void deleteQna(int qnaIdx) throws Exception {
+		boardMapper.deleteQna(qnaIdx);
+		
 	}
 	
 

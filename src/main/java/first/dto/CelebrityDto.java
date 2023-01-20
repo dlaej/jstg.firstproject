@@ -18,6 +18,9 @@ public class CelebrityDto {
 	private String fcreatedId;
 	private String fupdatedDt;
 	private String fupdatedId;
-
+	private String fimage;
+	
+	private String youtube;
+	private String instagram;
 
 }

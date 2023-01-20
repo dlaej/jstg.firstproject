@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<title>고객센터</title>
 	<link rel="stylesheet" th:href="@{/css/main.css}" />
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">	
 </head>
 <body>
 	<div>
@@ -13,10 +14,22 @@
 		<div id="list">
 			<a id="icon" href="index.do"><img src="/img/list-01.png" width=35px></a>
 		</div>	
-	</div>  
-	<div>
+	</div>
+	<div id="link">			
+			<div id="btn">
+			<a href="https://www.youtube.com/JYPEntertainment" target='_blank'><i class="fab fa-youtube fa-2x"></i></a>
+			</div>
+			<div id="btn">
+			<a href="https://www.instagram.com/jypentertainment/" target='_blank'><i class="fab fa-instagram fa-2x"></i></a>
+			</div>						
+	</div>
+	<div id="copy">
+		<p>Copyright © JSTG Entertainment</p>
+	</div>
+	<div class="board">
 		<h2>게시판 상세</h2>
 		<form action="" method="POST" id="frm" name="frm">
+		<input type="hidden" name="qnaIdx" th:value="${qna.qnaIdx}" />
 			<table class="board_detail">
 				<colgroup>
 					<col width="15%" />
@@ -51,6 +64,36 @@
 				</tbody>
 			</table>
 		</form>
+		
+		<input type="button" id="liston"   class="btn" value="LIST" />
+		<input type="button" id="edit"   class="btn" value="UPDATE" />
+		<input type="button" id="delete" class="btn" value="DELETE" />
+		
+		<!-- jQuery 라이브러리를 불러옴 -->
+		<script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+		
+		<!-- 각 버튼을 클릭했을 때 동작을 정의 -->
+		<script>
+			// 문서 전체가 로딩되었을 때 실행되는 코드
+			$(function() {
+				// id 속성의 값이 list인 엘리먼트가 클릭되었을 때 동작을 정의
+				$('#liston').on('click', function() {
+					location.href = 'openQnaList.do';
+				});
+				
+				$('#edit').on('click', function() {
+					let frm = $('#frm')[0];
+					frm.action = 'updateQna.do';
+					frm.submit();
+				});
+				
+				$('#delete').on('click', function() {
+					let frm = $('#frm')[0];
+					frm.action = 'deleteQna.do';
+					frm.submit();
+				});
+			});
+		</script>		
 	</div>
 </body>
 </html>

@@ -10,6 +10,8 @@ public class MemberDto {
 	private String memberImage;
 	private int celebrityIdx;
 	private String celebrityName;	
+	private String youtube;
+	private String instagram;
 	
 
 }

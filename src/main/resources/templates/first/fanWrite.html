@@ -3,16 +3,41 @@
 <head>
 	<meta charset="UTF-8">
 	<title>FAN</title>
-	<link rel="stylesheet" th:href="@{/css/style.css}" />
+	<link rel="stylesheet" th:href="@{/css/main.css}" />
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">	
 </head>
 <body>
-	<div class="container">
-		<h2>게시판 등록</h2>
-		<form action="/insertFan.do" method="POST" id="frm" name="frm">
+	<div>
+		<div id="logo">
+			<a id="icon" href="main.do"><img src="/img/jstg-01.png" width=70px></a>	
+		</div>
+		<div id="list">
+			<a id="icon" href="index.do"><img src="/img/list-01.png" width=35px></a>
+		</div>	
+	</div>
+	<div id="link">			
+			<div id="btn">
+			<a href="#"><i class="fab fa-youtube fa-2x"></i></a>
+			</div>
+			<div id="btn">
+			<a href="#"><i class="fab fa-instagram fa-2x"></i></a>
+			</div>						
+	</div>
+	<div id="copy">
+		<p>Copyright © JSTG Entertainment</p>
+	</div>
+	<div class="board">
+		<h2>사진을 입력하셔야 등록됩니다요.</h2>
+		<form action="/insertFan.do" method="POST" id="frm" name="frm" enctype="multipart/form-data">
+		<input type="hidden" name="celebrityIdx" th:value="${celebrityIdx}" />
 			<table class="board_detail">
 				<tr>
 					<td>제목</td>
-					<td><input type="text" id="ftitle" name="ftitle" /></td>
+					<td><input type="text" id="ftitle" name="ftitle" /></td>								
+				</tr>
+				<tr>
+					<td>이미지</td>
+					<td><input type="file" name="imageFile" /></td>	
 				</tr>
 				<tr>
 					<td colspan="2"><textarea id="fcontents" name="fcontents"></textarea></td>

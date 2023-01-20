@@ -27,6 +27,10 @@ public interface CelebrityMapper {
 	void insertFan(CelebrityDto fanDto) throws Exception;
 	void updatefHitCount(int fanIdx) throws Exception;
 	CelebrityDto selectFanDetail(int fanIdx) throws Exception;
+	void updateFan(CelebrityDto fanDto) throws Exception;
+	void deleteFan(int fanIdx) throws Exception;
+	CelebrityDto selectOneFanByFanId(int fanIdx) throws Exception;
+	
 	
 
 

@@ -1,9 +1,14 @@
 package first.service;
 
+
+
+import java.io.File;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import first.dto.CelebrityDto;
 import first.dto.MemberDto;
@@ -11,6 +16,10 @@ import first.mapper.CelebrityMapper;
 
 @Service
 public class CelebrityServiceImpl implements CelebrityService {
+	
+	@Value("${application.upload-path}")
+	private String uploadPath;
+
 	
 	@Autowired
 	private CelebrityMapper celebrityMapper;
@@ -72,7 +81,10 @@ public class CelebrityServiceImpl implements CelebrityService {
 	}
 
 	@Override
-	public void insertFan(CelebrityDto fanDto) throws Exception {
+	public void insertFan(CelebrityDto fanDto,  MultipartFile file) throws Exception {
+		String savedFilePath = saveFile(file);
+		fanDto.setFimage(savedFilePath);
+		
 		celebrityMapper.insertFan(fanDto);
 		
 	}
@@ -85,7 +97,36 @@ public class CelebrityServiceImpl implements CelebrityService {
 
 	@Override
 	public CelebrityDto selectFanDetail(int fanIdx) throws Exception {
+		celebrityMapper.updatefHitCount(fanIdx);
 		return celebrityMapper.selectFanDetail(fanIdx);
+	}
+
+	@Override
+	public void updateFan(CelebrityDto fanDto) throws Exception {
+		celebrityMapper.updateFan(fanDto);
+		
+	}
+
+	@Override
+	public void deleteFan(int fanIdx) throws Exception {
+		celebrityMapper.deleteFan(fanIdx);
+				
+	}
+
+	@Override
+	public String saveFile(MultipartFile file) throws Exception {
+		String savedFilePath = uploadPath + file.getOriginalFilename();		
+		
+		File uploadFile = new File(savedFilePath);
+		file.transferTo(uploadFile);
+		
+		return savedFilePath;
+
+	}
+
+	@Override
+	public CelebrityDto selectOneFanByFanId(int fanIdx) throws Exception {
+		return celebrityMapper.selectOneFanByFanId(fanIdx);
 	}
 
 	

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -31,6 +32,26 @@ public class BoardController {
 		
 		return mv;
 	}
+	
+	@GetMapping("/about.do")
+	public ModelAndView about() throws Exception {
+		ModelAndView mv = new ModelAndView("/first/about");		
+		
+		return mv;
+	}
+	@GetMapping("/history.do")
+	public ModelAndView history() throws Exception {
+		ModelAndView mv = new ModelAndView("/first/history");		
+		
+		return mv;
+	}
+	@GetMapping("/contact.do")
+	public ModelAndView contact() throws Exception {
+		ModelAndView mv = new ModelAndView("/first/contact");		
+		
+		return mv;
+	}
+	
 	
 	@GetMapping("/openNoticeList.do")
 	public ModelAndView openNoticeList() throws Exception {
@@ -64,6 +85,18 @@ public class BoardController {
 		return mv;
 	}
 	
+	@PostMapping("/updateNotice.do")
+	public String updateNotice(BoardDto noticeDto) throws Exception {
+		boardService.updateNotice(noticeDto);
+		return "redirect:/openNoticeList.do";
+	}
+	
+	@PostMapping("/deleteNotice.do")
+	public String deleteBoard(BoardDto noticeDto) throws Exception {
+		boardService.deleteNotice(noticeDto.getNoticeIdx());
+		return "redirect:/openNoticeList.do";
+	}
+	
 	@GetMapping("/openQnaList.do")
 	public ModelAndView openQnaList() throws Exception {
 		ModelAndView mv = new ModelAndView("/first/qnaList");
@@ -90,10 +123,22 @@ public class BoardController {
 	public ModelAndView openQnaDetail(@RequestParam int qnaIdx) throws Exception {	
 		ModelAndView mv = new ModelAndView("/first/qnaDetail");
 	
-		BoardDto qnaDto = boardService.selectNoticeDetail(qnaIdx);
+		BoardDto qnaDto = boardService.selectQnaDetail(qnaIdx);
 		mv.addObject("qna", qnaDto);
 		
 		return mv;
+	}
+	
+	@PostMapping("/updateQna.do")
+	public String updateQna(BoardDto qnaDto) throws Exception {
+		boardService.updateQna(qnaDto);
+		return "redirect:/openQnaList.do";
+	}
+	
+	@PostMapping("/deleteQna.do")
+	public String deleteQna(BoardDto qnaDto) throws Exception {
+		boardService.deleteQna(qnaDto.getQnaIdx());
+		return "redirect:/openQnaList.do";
 	}
 
 

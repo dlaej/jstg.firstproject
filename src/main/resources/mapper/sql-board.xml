@@ -6,7 +6,7 @@
 
 	<select id="selectNoticeList" resultType="first.dto.BoardDto">
 		select notice_idx, ntitle, nhit_cnt, 
-		       date_format(ncreated_dt, '%Y-%m-%d %H:%i:%s') as ncreated_dt
+		       date_format(ncreated_dt, '%Y-%m-%d') as ncreated_dt
 		  from t_notice
 		 where ndeleted_yn = 'N'
 	     order by notice_idx desc
@@ -24,15 +24,31 @@
 	
 	<select id="selectNoticeDetail" parameterType="int" resultType="first.dto.BoardDto">
 		select notice_idx, ntitle, ncontents, nhit_cnt,
-		       date_format(ncreated_dt, '%Y-%m-%d %H:%i:%s') as ncreated_dt,
+		       date_format(ncreated_dt, '%Y-%m-%d') as ncreated_dt,
 		       ncreated_id
 		  from t_notice
 		 where ndeleted_yn = 'N' and notice_idx = #{noticeIdx}		       
-	</select>	
+	</select>
+	<update id="updateNotice" parameterType="first.dto.BoardDto">
+		update t_notice
+		   set ntitle = #{ntitle}, 
+		       ncontents = #{ncontents}, 
+		       nupdated_dt = now(), 
+		       nupdated_id = 'admin'
+		 where notice_idx = #{noticeIdx} 		 
+	</update>
+	
+	<delete id="deleteNotice" parameterType="int">
+		update t_notice
+		   set ndeleted_yn = 'Y', 
+		       nupdated_dt = now(), 
+		       nupdated_id = 'admin'
+		 where notice_idx = #{noticeIdx} 		 
+	</delete>	
 	
 	<select id="selectQnaList" resultType="first.dto.BoardDto">
 		select qna_idx, qtitle, qhit_cnt, 
-		       date_format(qcreated_dt, '%Y-%m-%d %H:%i:%s') as qcreated_dt
+		       date_format(qcreated_dt, '%Y-%m-%d') as qcreated_dt
 		  from t_qna
 		 where qdeleted_yn = 'N'
 	     order by qna_idx desc
@@ -50,11 +66,28 @@
 	
 	<select id="selectQnaDetail" parameterType="int" resultType="first.dto.BoardDto">
 		select qna_idx, qtitle, qcontents, qhit_cnt,
-		       date_format(qcreated_dt, '%Y-%m-%d %H:%i:%s') as qcreated_dt,
+		       date_format(qcreated_dt, '%Y-%m-%d') as qcreated_dt,
 		       qcreated_id
 		  from t_qna
 		 where qdeleted_yn = 'N' and qna_idx = #{qnaIdx}		       
-	</select>	
+	</select>
+	
+	<update id="updateQna" parameterType="first.dto.BoardDto">
+		update t_qna
+		   set qtitle = #{qtitle}, 
+		       qcontents = #{qcontents}, 
+		       qupdated_dt = now(), 
+		       qupdated_id = 'admin'
+		 where qna_idx = #{qnaIdx} 		 
+	</update>
+	
+	<delete id="deleteQna" parameterType="int">
+		update t_qna
+		   set qdeleted_yn = 'Y', 
+		       qupdated_dt = now(), 
+		       qupdated_id = 'admin'
+		 where qna_idx = #{qnaIdx} 		 
+	</delete>		
 	
 	
 </mapper>

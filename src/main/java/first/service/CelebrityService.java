@@ -2,7 +2,8 @@ package first.service;
 
 import java.util.List;
 
-import first.dto.BoardDto;
+import org.springframework.web.multipart.MultipartFile;
+
 import first.dto.CelebrityDto;
 import first.dto.MemberDto;
 
@@ -21,9 +22,13 @@ public interface CelebrityService {
 	public CelebrityDto selectCelebrityName(int celebrityIdx) throws Exception;
 	
 	List<CelebrityDto> selectFanList() throws Exception;
-	void insertFan(CelebrityDto fanDto) throws Exception;
+	void insertFan(CelebrityDto fanDto,  MultipartFile file) throws Exception;
 	void updatefHitCount(int fanIdx) throws Exception;
 	CelebrityDto selectFanDetail(int fanIdx) throws Exception;
+	void updateFan(CelebrityDto fanDto) throws Exception;
+	void deleteFan(int fanIdx) throws Exception;
+	String saveFile(MultipartFile file) throws Exception;
+	CelebrityDto selectOneFanByFanId(int fanIdx) throws Exception;
 
 
 }

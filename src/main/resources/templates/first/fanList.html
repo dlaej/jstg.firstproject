@@ -3,9 +3,11 @@
 <head>
 	<meta charset="UTF-8" />
 	<title>FAN</title>
-	<link rel="stylesheet" th:href="@{/css/main.css}" />	
+	<link rel="stylesheet" th:href="@{/css/main.css}" />
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">	
 </head>
 <body>
+	<input type="hidden" name="celebrityIdx" th:value="${celebrityDto.celebrityIdx}" />
 	<div>
 		<div id="logo">
 			<a id="icon" href="main.do"><img src="/img/jstg-01.png" width=70px></a>	
@@ -13,11 +15,21 @@
 		<div id="list">
 			<a id="icon" href="index.do"><img src="/img/list-01.png" width=35px></a>
 		</div>	
-	</div>  
-	<div class="container">
-		<h2>팬게시판</h2>
-		
-		<h1>[[${celebName.celebrityName}]]</h1>
+	</div>
+	<div id="link">			
+			<div id="btn">
+			<a th:href="${celebrityDto.youtube}" target='_blank'><i class="fab fa-youtube fa-2x"></i></a>
+			</div>
+			<div id="btn">
+			<a th:href="${celebrityDto.instagram}" target='_blank'><i class="fab fa-instagram fa-2x"></i></a>
+			</div>						
+	</div>
+	<div id="copy">
+		<p>Copyright © JSTG Entertainment</p>
+	</div> 
+	<div class="board">
+		<span id="title" class="board_title"><b>[[${celebName.celebrityName}]]</b></span>
+	
 		<table class="board_list">
 			<colgroup>
 				<col width="15%" />
@@ -51,7 +63,8 @@
 				</tr>
 			</tbody>
 		</table>
-		<a href="/openFanWrite.do" class="btn">글쓰기</a>
+		<a href="/openFanWrite.do?celebrityIdx=" 
+			th:attrappend="href=${celebrityDto.celebrityIdx}" class="btn">WRITE</a>
 	</div>
 </body>
 </html>

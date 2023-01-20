@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<title>FAN</title>
 	<link rel="stylesheet" th:href="@{/css/main.css}" />
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">	
 </head>
 <body>
 	<div>
@@ -13,10 +14,23 @@
 		<div id="list">
 			<a id="icon" href="index.do"><img src="/img/list-01.png" width=35px></a>
 		</div>	
-	</div>  
-	<div>
+	</div>
+	<div id="link">			
+			<div id="btn">
+			<a href="#"><i class="fab fa-youtube fa-2x"></i></a>
+			</div>
+			<div id="btn">
+			<a href="#"><i class="fab fa-instagram fa-2x"></i></a>
+			</div>						
+	</div>
+	<div id="copy">
+		<p>Copyright © JSTG Entertainment</p>
+	</div>
+	<div class="board">
 		<h2>게시판 상세</h2>
 		<form action="" method="POST" id="frm" name="frm">
+		<input type="hidden" name="fanIdx" th:value="${fan.fanIdx}" />
+		<input type="hidden" name="celebrityIdx" th:value="${fan.celebrityIdx}" />
 			<table class="board_detail">
 				<colgroup>
 					<col width="15%" />
@@ -44,6 +58,10 @@
 						</td>
 					</tr>
 					<tr>
+						<td><img src="/download.do?fanIdx=" th:attrappend="src=${fan.fanIdx}" width=300px></td>
+					</tr>
+					
+					<tr>
 						<td colspan="4" class="view_text">
 							<textarea title="내용" id="fcontents" name="fcontents" th:text="${fan.fcontents}"></textarea>
 						</td>
@@ -51,6 +69,8 @@
 				</tbody>
 			</table>
 		</form>
+		<a href="openFanList.do?celebrityIdx=" th:attrappend="href=${fan.celebrityIdx}" class="btn">LIST</a>
+	
 	</div>
 </body>
 </html>

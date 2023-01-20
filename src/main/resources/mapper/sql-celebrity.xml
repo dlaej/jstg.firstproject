@@ -17,7 +17,7 @@
 	</select> 
 	
 	<select id="selectOneCelebrityByCelebrityIdx" parameterType="int" resultType="first.dto.CelebrityDto">
-		select celebrity_idx, celebrity_name, celebrity_image , type_idx
+		select celebrity_idx, celebrity_name, celebrity_image , youtube, instagram, type_idx
 		from t_celebrity
 		where celebrity_idx = #{celebrityIdx}
 	</select>
@@ -32,7 +32,7 @@
 	</select>
 	
 	<select id="selectOneMemberByCelebrityIdx" parameterType="int" resultType="first.dto.MemberDto">
-		select c.celebrity_idx, celebrity_name, m.member_idx, member_name, member_image, member_contents
+		select c.celebrity_idx, celebrity_name, m.member_idx, member_name, member_image, member_contents, c.youtube, c.instagram
 		from t_celebrity c, t_member m
 		where c.celebrity_idx = #{celebrityIdx}
 		and c.celebrity_idx = m.celebrity_idx
@@ -65,15 +65,15 @@
 	</select>
 	
 	<select id="selectFanList" resultType="first.dto.CelebrityDto">
-		select fan_idx, ftitle, fhit_cnt, 
-		       date_format(fcreated_dt, '%Y-%m-%d %H:%i:%s') as fcreated_dt
+		select fan_idx, ftitle, fhit_cnt, fimage, 
+		       date_format(fcreated_dt, '%Y-%m-%d') as fcreated_dt
 		  from t_fan
 		 where fdeleted_yn = 'N'
 	     order by fan_idx desc
 	</select> 
 	<insert id="insertFan" parameterType="first.dto.CelebrityDto">
-		insert into t_fan (ftitle, fcontents, fcreated_dt, fcreated_id)
-		values ( #{ftitle}, #{fcontents}, now(), 'admin' )
+		insert into t_fan (ftitle, fimage,fcontents, fcreated_dt, fcreated_id, celebrity_idx)				
+		values ( #{ftitle}, #{fimage}, #{fcontents},  curdate(), 'admin', #{celebrityIdx})
                 
 	</insert>
 	<update id="updatefHitCount" parameterType="int">
@@ -83,12 +83,18 @@
 	</update>
 	
 	<select id="selectFanDetail" parameterType="int" resultType="first.dto.CelebrityDto">
-		select fan_idx, ftitle, fcontents, fhit_cnt,
-		       date_format(fcreated_dt, '%Y-%m-%d %H:%i:%s') as fcreated_dt,
+		select fan_idx, ftitle, fcontents, fhit_cnt, fimage, celebrity_idx,
+		       date_format(fcreated_dt, '%Y-%m-%d') as fcreated_dt,
 		       fcreated_id
 		  from t_fan
 		 where fdeleted_yn = 'N' and fan_idx = #{fanIdx}		       
 	</select>
+	
+	<select id="selectOneFanByFanId" parameterType="int" resultType="first.dto.CelebrityDto">
+		select fan_idx, ftitle, fimage, fcontents, fcreated_dt
+		  from t_fan
+      where fan_idx = #{fanIdx}
+	</select>	
 	
 	
 	<select id="selectFanboardList" parameterType="int" resultType="first.dto.CelebrityDto">
@@ -105,5 +111,22 @@
 		where celebrity_idx = #{celebrityIdx}
 	</select>
 	
+	<update id="updateFan" parameterType="first.dto.CelebrityDto">
+		update t_fan
+		   set ftitle = #{ftitle}, 
+		       fcontents = #{fcontents},
+		       fimage = #{fimage}, 
+		       fupdated_dt = curdate(), 
+		       fupdated_id = 'admin'
+		 where fan_idx = #{fanIdx} 		 
+	</update>
+	
+	<delete id="deleteFan" parameterType="int">
+		update t_fan
+		   set fdeleted_yn = 'Y', 
+		       fupdated_dt = curdate(), 
+		       fupdated_id = 'admin'
+		 where fan_idx = #{fanIdx} 		 
+	</delete>		
 
 </mapper>
