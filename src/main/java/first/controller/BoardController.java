@@ -63,12 +63,12 @@ public class BoardController {
 		return mv;
 	}
 	
-	@RequestMapping("/openNoticeWrite.do")
+	@GetMapping("/openNoticeWrite.do")
 	public String openNoticeWrite() throws Exception {
 		return "/first/noticeWrite";
 	}
 	
-	// 글 저장 처리에 대한 요청을 처리
+
 	@RequestMapping("/insertNotice.do")
 	public String insertNotice(BoardDto noticeDto) throws Exception {
 		boardService.insertNotice(noticeDto);

@@ -24,21 +24,18 @@
 			<a th:href="${celebrityDto.instagram}" target='_blank'><i class="fab fa-instagram fa-2x"></i></a>
 			</div>
 			<div id="btn">			
-			<a href="/openFanList.do?celebrityIdx=" th:attrappend="href=${celebrityDto.celebrityIdx}" target='_blank'><i class="fas fa-list fa-2x"></i></a>
+			<a href="/openFanList.do?celebrityIdx=" th:attrappend="href=${celebrityDto.celebrityIdx}" target='_blank'>
+			<i class="fas fa-list fa-2x"></i></a>
 			</div>			
-	</div>
-	
+	</div>	
 	<div id="copy">
 		<p>Copyright © JSTG Entertainment</p>
 	</div>
 	  
-	<div>
-			
-				
+	<div>				
 		<div id="test3">
 			<p><b th:text="${celebrityDto.celebrityName}"></b></p>	
-		</div>
-		
+		</div>		
 		
 		<div id="test4">
 		<div id="test" th:if="${#lists.size(one)} > 0" th:each="o : ${one}">			

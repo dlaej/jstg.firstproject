@@ -16,11 +16,16 @@
 			
 	</select> 
 	
-	<select id="selectOneCelebrityByCelebrityIdx" parameterType="int" resultType="first.dto.CelebrityDto">
-		select celebrity_idx, celebrity_name, celebrity_image , youtube, instagram, type_idx
-		from t_celebrity
-		where celebrity_idx = #{celebrityIdx}
-	</select>
+	
+	<select id="selectOneMemberByCelebrityIdx" parameterType="int" resultType="first.dto.MemberDto">
+		select c.celebrity_idx, celebrity_name, m.member_idx, member_name, member_image, 
+		member_contents, c.youtube, c.instagram
+		from t_celebrity c, t_member m
+		where c.celebrity_idx = #{celebrityIdx}
+		and c.celebrity_idx = m.celebrity_idx
+		order by member_idx desc
+		limit 1	
+	</select>	
 	
 	
 	<select id="selectCelebrity"  resultType="first.dto.CelebrityDto">
@@ -31,14 +36,7 @@
 		order by celebrity_idx asc	
 	</select>
 	
-	<select id="selectOneMemberByCelebrityIdx" parameterType="int" resultType="first.dto.MemberDto">
-		select c.celebrity_idx, celebrity_name, m.member_idx, member_name, member_image, member_contents, c.youtube, c.instagram
-		from t_celebrity c, t_member m
-		where c.celebrity_idx = #{celebrityIdx}
-		and c.celebrity_idx = m.celebrity_idx
-		order by member_idx desc
-		limit 1	
-	</select>	
+	
 	
 	<select id="selectMemberByCelebrityIdx" parameterType="int" resultType="first.dto.MemberDto">
 		select c.celebrity_idx, celebrity_name, m.member_idx, member_name, member_image, member_contents
@@ -96,6 +94,11 @@
       where fan_idx = #{fanIdx}
 	</select>	
 	
+	<select id="selectOneCelebrityByCelebrityIdx" parameterType="int" resultType="first.dto.CelebrityDto">
+		select celebrity_idx, celebrity_name, celebrity_image , youtube, instagram, type_idx
+		from t_celebrity
+		where celebrity_idx = #{celebrityIdx}
+	</select>
 	
 	<select id="selectFanboardList" parameterType="int" resultType="first.dto.CelebrityDto">
 		select fan_idx, ftitle, fcontents, fhit_cnt, fcreated_dt, fcreated_id, celebrity_name

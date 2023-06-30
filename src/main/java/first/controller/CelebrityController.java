@@ -72,23 +72,26 @@ public class CelebrityController {
 	@GetMapping("/openMember.do")
 	public ModelAndView openMember(@RequestParam int celebrityIdx) throws Exception {
 		ModelAndView mv = new ModelAndView("/first/member");
-		
-		List<CelebrityDto> celebrity = celebrityService.selectCelebrity();
-		mv.addObject("celebrity", celebrity);
 				
 		CelebrityDto celebrityDto = celebrityService.selectOneCelebrityByCelebrityIdx(celebrityIdx);
 		mv.addObject("celebrityDto",celebrityDto);		
 		
 		List<MemberDto> one = celebrityService.selectMemberByCelebrityIdx(celebrityIdx);
-		mv.addObject("one", one);		
+		mv.addObject("one", one);	
+		
+		List<CelebrityDto> celebrity = celebrityService.selectCelebrity();
+		mv.addObject("celebrity", celebrity);
 		
 		MemberDto memberDto = celebrityService.selectOneMemberByCelebrityIdx(celebrityIdx);
 		mv.addObject("member", memberDto);	
 		
+				
 		return mv;
 	
 	}
 	
+
+			
 	@GetMapping("/getMember.do")
 	public ModelAndView getMember(@RequestParam int memberIdx) throws Exception {				
 		ModelAndView mv = new ModelAndView("/first/profile");		
@@ -101,7 +104,7 @@ public class CelebrityController {
 	
 
 	
-	@RequestMapping("/openFanWrite.do")
+	@GetMapping("/openFanWrite.do")
 	public ModelAndView openFanWrite(@RequestParam int celebrityIdx) throws Exception {		
 		ModelAndView mv = new ModelAndView("/first/fanWrite");
 	
@@ -116,8 +119,7 @@ public class CelebrityController {
 		ModelAndView mv = new ModelAndView("/first/fanDetail");
 	
 		CelebrityDto fanDto = celebrityService.selectFanDetail(fanIdx);
-		mv.addObject("fan", fanDto);
-		
+		mv.addObject("fan", fanDto);		
 		
 		return mv;
 	}
@@ -162,13 +164,11 @@ public class CelebrityController {
 	
 	@GetMapping("/download.do")
 	public void downloadFile(@RequestParam int fanIdx, HttpServletResponse response) throws Exception {
-		// topicId에 해당하는 기사 정보 조회
-		CelebrityDto fanDto = celebrityService.selectOneFanByFanId(fanIdx);
-				
-		// 기사 정보에서 topicImage 정보를 추출
-		String fanImage = fanDto.getFimage();
 		
-		// topicImage 정보에 해당하는 파일을 읽어서 response 객체를 통해서 클라이언트로 전달
+		CelebrityDto fanDto = celebrityService.selectOneFanByFanId(fanIdx);				
+		
+		String fanImage = fanDto.getFimage();		
+		
 		FileInputStream fis = null;
 		BufferedInputStream bis = null;
 		BufferedOutputStream bos = null;
