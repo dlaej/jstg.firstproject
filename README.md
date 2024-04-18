@@ -187,5 +187,7 @@ public class DatabaseConfiguration {
 > controller (<-> view) > service > serviceImpl > mapper > sql쿼리
 
 #### 구현 방법
+
 > controller에 사용자의 요청과 응답 관련한 코드를 작성하고 db 관련한 코드는 메서드 호출만 하고 구현 코드는 service serviceimpl mapper sql쿼리에 걸쳐 작성.
+
 > 응답 화면은 view에 html를 사용하여 작성.
