@@ -48,6 +48,7 @@
 > controller와 view가 분리가 된다.
 
 ~~서블릿이란?~~
+
 > 이 프로젝트가 채택한 패턴
 
 #### spring mvc
@@ -55,8 +56,8 @@
 
 > mvc2패턴을 좀 더 발전시킨 모델.
 
-> 1. 클라이언트가 서버에 요청을 하면, front contreoller인 dispatcherServlet 클래스가 요청을 받는다.
-> 2. dispatcherServlet은 프로젝트 파일 내의 servlet-context.xml파일의 @Contreoller 인자를 통해 등록한 요청 위임 컨트롤러를 찾아 매핑된 컨트롤러가 존재하면 @RequestMapping을 통해 요청을 처리할 메소드로 이동한다.
+> 1. 클라이언트가 서버에 요청을 하면, front controller인 dispatcherServlet 클래스가 요청을 받는다.
+> 2. dispatcherServlet은 프로젝트 파일 내의 servlet-context.xml파일의 @Controller 인자를 통해 등록한 요청 위임 컨트롤러를 찾아 매핑된 컨트롤러가 존재하면 @RequestMapping을 통해 요청을 처리할 메소드로 이동한다.
 > 3. 컨트롤러는 해당 요청을 처리한 service를 받아 비즈니스 로직을 서비스에게 위임한다.
 > 4. service는 요청에 필요한 작업을 수행하고, 요청에 대해 db에 접근해야한다면 dao에 요청하여 처리를 위임한다.
 > 5. dao는 db정보를 dto를 통해 받아 서비스에게 전달한다.
@@ -75,4 +76,116 @@
 
 *아직 해결하지 못한 의문점*
 
-## 3. springboot 어노테이션 & 사용 기능
+## 3. 프로젝트 구조 
+
+### 자동 생성 클래스
+```java
+@SpringBootApplication
+public class FirstProjectApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(FirstProjectApplication.class, args);
+	}
+
+}
+```
+> 처음 springboot 프로젝트를 만들면 생성되는 클래스
+
+
+### transaction 관련 클래스
+```java
+
+public class TransactionAspect {
+	
+
+	private static final String AOP_TRANSACTION_METHOD_NAME = "*";
+	private static final String AOP_TRANSACTION_EXPRESSION = "execution(* first..service.*Impl.*(..))";
+	
+	@Autowired
+	private PlatformTransactionManager transactionManager;
+	
+	@Bean
+	public TransactionInterceptor transactionAdvice() {
+		RuleBasedTransactionAttribute transactionAttribute = new RuleBasedTransactionAttribute();
+		transactionAttribute.setName(AOP_TRANSACTION_METHOD_NAME);
+		transactionAttribute.setRollbackRules(
+				Collections.singletonList(new RollbackRuleAttribute(Exception.class)));
+		
+		MatchAlwaysTransactionAttributeSource source = new MatchAlwaysTransactionAttributeSource();
+		source.setTransactionAttribute(transactionAttribute);
+		
+		return new TransactionInterceptor(transactionManager, source);	
+	}
+	
+	@Bean
+	public Advisor transactionAdviceAdvisor() {
+		AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
+		pointcut.setExpression(AOP_TRANSACTION_EXPRESSION);
+		return new DefaultPointcutAdvisor(pointcut, transactionAdvice());		
+	}
+
+}
+
+```
+
+### 데이터베이스 관련 클래스
+```java
+
+@Configuration
+@PropertySource("classpath:/application.properties")
+public class DatabaseConfiguration {
+	
+	@Autowired
+	private ApplicationContext applicationContext;
+
+	
+	@Bean
+	@ConfigurationProperties(prefix="spring.datasource.hikari")
+	public HikariConfig hikariConfig() {
+		return new HikariConfig();
+	}
+	
+	@Bean
+	public DataSource dataSource() throws Exception {
+		DataSource dataSource = new HikariDataSource(hikariConfig());
+		System.out.println(dataSource.toString());
+		return dataSource;
+	}
+	
+	@Bean
+	@ConfigurationProperties(prefix="mybatis.configuration")
+	public org.apache.ibatis.session.Configuration mybatisConfig() {
+		return new org.apache.ibatis.session.Configuration();
+	}
+
+	
+	@Bean
+	public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
+		SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
+		sqlSessionFactoryBean.setDataSource(dataSource);
+		sqlSessionFactoryBean.setMapperLocations(
+				applicationContext.getResources("classpath:/mapper/**/sql-*.xml"));
+		sqlSessionFactoryBean.setConfiguration(mybatisConfig());
+		return sqlSessionFactoryBean.getObject();		
+	}
+	
+	
+	@Bean
+	public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
+		return new SqlSessionTemplate(sqlSessionFactory);
+	}
+
+
+
+}
+
+```
+### 그 외 클래스
+
+#### 응답 처리 구조
+
+> controller (<-> view) > service > serviceImpl > mapper > sql쿼리
+
+#### 구현 방법
+> controller에 사용자의 요청과 응답 관련한 코드를 작성하고 db 관련한 코드는 메서드 호출만 하고 구현 코드는 service serviceimpl mapper sql쿼리에 걸쳐 작성.
+> 응답 화면은 view에 html를 사용하여 작성.
